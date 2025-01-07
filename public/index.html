@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notas na Federal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Calculadora de Notas na Federal</h1>
+
+  <form id="form">
+    <label for="universidade">Universidade:</label>
+    <select id="universidade" name="universidade">
+      <option value="UFG">UFG</option>
+    </select>
+
+    <label for="linguagens">Nota de Linguagens:</label>
+    <input type="number" id="linguagens" name="linguagens" required>
+
+    <label for="humanas">Nota de Ciências Humanas:</label>
+    <input type="number" id="humanas" name="humanas" required>
+
+    <label for="natureza">Nota de Ciências da Natureza:</label>
+    <input type="number" id="natureza" name="natureza" required>
+
+    <label for="matematica">Nota de Matemática:</label>
+    <input type="number" id="matematica" name="matematica" required>
+
+    <label for="redacao">Nota de Redação:</label>
+    <input type="number" id="redacao" name="redacao" required>
+
+    <button type="submit">Calcular</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
