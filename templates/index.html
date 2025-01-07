@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Notas</title>
+</head>
+<body>
+    <h1>Calculadora de Notas</h1>
+    <form id="form-notas">
+        
+        <label for="universidade">Selecione a Universidade:</label>
+        <select id="universidade" name="universidade">
+            {% for universidade in universidades %}
+            <option value="{{ universidade }}">{{ universidade }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>Nota de Linguagens:</label>
+        <input type="number" step="0.1" name="notas" required><br>
+
+        <label>Nota de Ciências Humanas:</label>
+        <input type="number" step="0.1" name="notas" required><br>
+
+        <label>Nota de Ciências da Natureza:</label>
+        <input type="number" step="0.1" name="notas" required><br>
+
+        <label>Nota de Matemática:</label>
+        <input type="number" step="0.1" name="notas" required><br>
+
+        <label>Nota de Redação:</label>
+        <input type="number" step="0.1" name="notas" required><br><br>
+
+        <button type="submit">Calcular</button>
+    </form>
+
+    <h2>Resultado</h2>
+    <pre id="resultado"></pre>
+
+    <script>
+        const form = document.getElementById("form-notas");
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+
+            const universidade = document.getElementById("universidade").value;
+            const notas = Array.from(
+                form.querySelectorAll('input[name="notas"]')
+            ).map((input) => parseFloat(input.value));
+
+            const response = await fetch("/calcular", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ universidade, notas }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                document.getElementById("resultado").textContent = `
+                Resultados por grupo: ${data.resultados.join(", ")}
+                Maior nota: ${data.maximo} (Grupo ${data.grupo})
+                `;
+            } else {
+                document.getElementById("resultado").textContent = data.error;
+            }
+        };
+    </script>
+</body>
+</html>
