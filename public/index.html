@@ -1,40 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notas na Federal</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de notas para universidades. Calcule suas notas de acordo com os pesos da UFG e outras instituições.">
+    <meta name="keywords" content="calculadora de notas, UFG, notas do ENEM, cálculo de médias, universidades">
+    <meta name="author" content="Seu Nome">
+    <title>Calculadora de Notas - Calcule suas médias para a UFG e outras universidades</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calculadora de Notas",
+      "description": "Calculadora de notas para universidades. Calcule suas notas de acordo com os pesos da UFG e outras instituições.",
+      "applicationCategory": "Educational",
+      "operatingSystem": "Web",
+      "url": "https://seusite.com"
+    }
+    </script>
 </head>
 <body>
-  <h1>Calculadora de Notas na Federal</h1>
+    <div class="container">
+        <h1>Calculadora de Notas</h1>
+        <p>Use esta calculadora para determinar suas médias de acordo com os pesos das universidades. Insira suas notas abaixo e clique em "Calcular".</p>
 
-  <form id="form">
-    <label for="universidade">Universidade:</label>
-    <select id="universidade" name="universidade">
-      <option value="UFG">UFG</option>
-    </select>
+        <form id="form-notas">
+            <label for="universidade">Selecione a Universidade:</label>
+            <select id="universidade">
+                <option value="UFG">UFG</option>
+                <option value="Outra_Uni">Outra Universidade</option>
+            </select>
 
-    <label for="linguagens">Nota de Linguagens:</label>
-    <input type="number" id="linguagens" name="linguagens" required>
+            <label for="linguagens">Nota de Linguagens:</label>
+            <input type="number" step="0.1" id="linguagens" required>
 
-    <label for="humanas">Nota de Ciências Humanas:</label>
-    <input type="number" id="humanas" name="humanas" required>
+            <label for="humanas">Nota de Ciências Humanas:</label>
+            <input type="number" step="0.1" id="humanas" required>
 
-    <label for="natureza">Nota de Ciências da Natureza:</label>
-    <input type="number" id="natureza" name="natureza" required>
+            <label for="natureza">Nota de Ciências da Natureza:</label>
+            <input type="number" step="0.1" id="natureza" required>
 
-    <label for="matematica">Nota de Matemática:</label>
-    <input type="number" id="matematica" name="matematica" required>
+            <label for="matematica">Nota de Matemática:</label>
+            <input type="number" step="0.1" id="matematica" required>
 
-    <label for="redacao">Nota de Redação:</label>
-    <input type="number" id="redacao" name="redacao" required>
+            <label for="redacao">Nota de Redação:</label>
+            <input type="number" step="0.1" id="redacao" required>
 
-    <button type="submit">Calcular</button>
-  </form>
+            <button type="button" id="calcular">Calcular</button>
+        </form>
 
-  <div id="resultado"></div>
+        <h2>Resultado</h2>
+        <pre id="resultado"></pre>
 
-  <script src="script.js"></script>
+        <section>
+            <h2>Como Funciona?</h2>
+            <p>A calculadora usa os pesos das universidades para calcular sua média. Cada universidade tem critérios diferentes, e você pode selecionar a instituição desejada no menu acima.</p>
+        </section>
+
+        <section>
+            <h2>Dicas para Melhorar suas Notas</h2>
+            <ul>
+                <li>Pratique redação regularmente.</li>
+                <li>Resolva exercícios de matemática diariamente.</li>
+                <li>Estude as áreas em que você tem mais dificuldade.</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Calculadora de Notas. Todos os direitos reservados.</p>
+        <nav>
+            <a href="/politica-de-privacidade.html">Política de Privacidade</a> | 
+            <a href="/termos-de-uso.html">Termos de Uso</a>
+        </nav>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

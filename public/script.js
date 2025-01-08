@@ -1,36 +1,45 @@
-document.getElementById("form").addEventListener("submit", async (event) => {
-    event.preventDefault();
-  
-    // Captura os dados do formulário
-    const universidade = document.getElementById("universidade").value;
-    const linguagens = parseFloat(document.getElementById("linguagens").value);
-    const humanas = parseFloat(document.getElementById("humanas").value);
-    const natureza = parseFloat(document.getElementById("natureza").value);
-    const matematica = parseFloat(document.getElementById("matematica").value);
-    const redacao = parseFloat(document.getElementById("redacao").value);
-  
-    const notas = [linguagens, humanas, natureza, matematica, redacao];
-  
-    try {
-      // Faz a requisição à API
-      const response = await fetch("/api/calcular", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ universidade, notas }),
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        document.getElementById("resultado").innerText =
-          `Sua maior nota é ${data.maior_nota}, correspondente ao grupo ${data.grupo}.`;
-      } else {
-        document.getElementById("resultado").innerText = `Erro: ${data.error}`;
-      }
-    } catch (error) {
-      document.getElementById("resultado").innerText = "Erro ao conectar com a API.";
-    }
-  });
-  
+const pesos = {
+  UFG: [
+      [2.0, 1.0, 2.5, 3.0, 1.5],
+      [2.0, 1.0, 1.5, 4.0, 1.5],
+      [2.0, 1.0, 1.0, 4.0, 2.0],
+      [2.0, 1.5, 3.0, 1.5, 2.0],
+      [2.0, 2.0, 3.0, 1.5, 2.0],
+      [2.5, 3.0, 1.0, 1.0, 2.5],
+      [2.5, 2.0, 1.0, 2.0, 2.5],
+      [3.0, 2.5, 1.0, 1.0, 2.5],
+  ],
+  Outra_Uni: [
+      [3.0, 2.0, 1.0, 2.0, 2.0],
+      [2.5, 2.5, 1.5, 2.0, 1.5],
+  ],
+};
+
+document.getElementById("calcular").onclick = () => {
+  const universidade = document.getElementById("universidade").value;
+  const notas = [
+      parseFloat(document.getElementById("linguagens").value),
+      parseFloat(document.getElementById("humanas").value),
+      parseFloat(document.getElementById("natureza").value),
+      parseFloat(document.getElementById("matematica").value),
+      parseFloat(document.getElementById("redacao").value),
+  ];
+
+  if (!pesos[universidade]) {
+      document.getElementById("resultado").textContent = "Universidade não encontrada!";
+      return;
+  }
+
+  const pesosUniversidade = pesos[universidade];
+  const resultados = pesosUniversidade.map((grupo) =>
+      grupo.reduce((acc, peso, i) => acc + peso * notas[i], 0) / 10
+  );
+
+  const maximo = Math.max(...resultados);
+  const grupo = resultados.indexOf(maximo) + 1;
+
+  document.getElementById("resultado").textContent = `
+      Resultados por grupo: ${resultados.join(", ")}
+      Maior nota: ${maximo} (Grupo ${grupo})
+  `;
+};
